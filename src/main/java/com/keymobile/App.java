@@ -1,18 +1,9 @@
 package com.keymobile;
 
-import com.keymobile.model.Card;
-import com.keymobile.model.Man;
-import com.keymobile.model.Sub;
-import com.keymobile.model.tree.FourthTree;
 import com.keymobile.model.tree.RootTree;
-import com.keymobile.model.tree.SecondaryTree;
-import com.keymobile.model.tree.ThirdTree;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
 /**
  * Hello world!
