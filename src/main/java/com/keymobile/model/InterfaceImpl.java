@@ -23,3 +23,8 @@ public class InterfaceImpl implements A,B {
     }
 
 }
+class AA{
+    private interface AAA{
+        void f();
+    }
+}

@@ -1,82 +1,45 @@
 package com.keymobile;
 
-import com.keymobile.model.tree.RootTree;
+import com.keymobile.model.tree.TreeNode;
+import com.keymobile.serivce.IGetFullTreeService;
+import com.keymobile.serivce.impl.GetFullTreeServiceImpl;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Hello world!
  */
 public class App {
-    private static int LENGTH = 1;
-    public static String getGraph(int length, int width) {
-        StringBuilder sb = new StringBuilder(80);
-
-        for (int i = 0; i < length; i++) {
-            sb.append("*");
-        }
-        for (int w = 1; w < width - 1; w++) {
-            sb.append("\n").append("*");
-            for (int i = 1; i < length - 1; i++) {
-                sb.append(" ");
-            }
-            sb.append("*");
-        }
-        sb.append("\n");
-        for (int i = 0; i < length; i++) {
-            sb.append("*");
-        }
-        return sb.toString();
-    }
-    public static RootTree getFullTree(int length, int width){
-        RootTree rootTree = new RootTree();
-        rootTree.setName("第一层1");
-        RootTree secondaryTree = new RootTree();
-        RootTree secondaryTree1 = new RootTree();
-        secondaryTree1.setName("第二层2");
-        secondaryTree.setName("第二层1");
-        RootTree thirdTree = new RootTree();
-        RootTree thirdTree2 = new RootTree();
-        secondaryTree.setSecondaryTreeList(Arrays.asList(thirdTree, thirdTree2));
-        thirdTree.setName("第三层1");
-        RootTree fourthTree1 = new RootTree();
-        fourthTree1.setName("第四层1");
-        RootTree fourthTree2 = new RootTree();
-        fourthTree2.setName("第四层2");
-        thirdTree.setSecondaryTreeList(Arrays.asList(fourthTree1, fourthTree2));
-        thirdTree2.setName("第三层2");
-        RootTree fourthTree3 = new RootTree();
-        fourthTree3.setName("第四层3");
-        RootTree fourthTree4 = new RootTree();
-        fourthTree4.setName("第四层4");
-        thirdTree2.setSecondaryTreeList(Arrays.asList(fourthTree3, fourthTree4));
-        RootTree thirdTree3 = new RootTree();
-        thirdTree3.setName("第三层3");
-        secondaryTree1.setSecondaryTreeList(Arrays.asList(thirdTree3));
-        //往第二层加元素
-        rootTree.setSecondaryTreeList(Arrays.asList(secondaryTree,secondaryTree1));
-        traverse(rootTree.getSecondaryTreeList());
-        return null;
-    }
 
     /**
-     * 遍历list
-     * @param list
+     * 深度遍历树
+     *
      * @return
      */
-    public static void traverse(List<? extends RootTree> list){
-        for (RootTree secondaryTree : list) {
-            System.out.println(secondaryTree.getName());
-            LENGTH++;
-            List<RootTree> thirdTreeList = secondaryTree.getSecondaryTreeList();
-            if(thirdTreeList != null && !thirdTreeList.isEmpty()){
-                traverse(thirdTreeList);
+    public List<Object> depthFirstSearch(TreeNode root) {
+        List<Object> list = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode tree = stack.pop();
+            if (tree.getRight() != null) {
+                stack.push(tree.getRight());
             }
+            if (tree.getLeft() != null) {
+                stack.push(tree.getLeft());
+            }
+            list.add(tree.getEle());//出栈了就放进list统计
         }
-        System.out.println(LENGTH);
+        return list;
     }
+
+
     public static void main(String[] args) {
+        /*IGetFullTreeService fullTreeService = new GetFullTreeServiceImpl();
+        System.out.println(fullTreeService.getFullTree(15, 4));*/
+        //System.out.println(getFullTree(14));
         /*StringTokenizer stringTokenizer = new StringTokenizer("string(100)", "()");
         while (stringTokenizer.hasMoreTokens()) {
             System.out.println(stringTokenizer.nextToken());
@@ -100,6 +63,20 @@ public class App {
                 .collect(Collectors.toList());
         cards.forEach(System.out::println);*/
         //System.out.println(getGraph(20, 10));
-        getFullTree(0,0);
+
+        //System.out.println(backPackQuestion(6, 4));
+        /*Sub s = new Sub();
+        s.getObject();*/
+        Integer i1 = 400;
+        Integer i2 = 400;
+        Integer i3 = 0;
+        Integer i4 = new Integer(400);
+        Integer i5 = new Integer(400);
+        Integer i6 = new Integer(0);
+
+        System.out.println("i1=i2\t" + (i1 == i2));
+        System.out.println("i1=i2+i3\t" + (i1 == i2 + i3));//会自动拆箱，所以比较的是数值
+        System.out.println("i4=i5\t" + (i4 == i5));
+        System.out.println("i4=i5+i6\t" + (i4 == i5 + i6));//会自动拆箱，所以比较的是数值
     }
 }

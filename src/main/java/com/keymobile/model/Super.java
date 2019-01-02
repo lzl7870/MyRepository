@@ -12,8 +12,12 @@ public class Super {
     public Super(String name, int age){
         this.name = name;
         this.age = age;
+        System.out.println("super constructor");
     }
     public Super(){
 
+    }
+    private final void doWork(){
+        System.out.println("super");
     }
 }
